@@ -2,7 +2,6 @@ package com.weno.shop.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.weno.shop.entity.Board;
-import com.weno.shop.entity.BoardRepository;
 import com.weno.shop.service.BoardService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +13,7 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-import static org.assertj.core.internal.bytebuddy.matcher.ElementMatchers.is;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -33,9 +29,6 @@ class BoardControllerTest {
 
     @MockBean
     private BoardService boardService;
-
-    @MockBean
-    private BoardRepository boardRepository;
 
     @Test
     void getAllBoardsTest() throws Exception {
@@ -67,7 +60,7 @@ class BoardControllerTest {
 
         //given
         Board board = Board.builder()
-                .id(1l)
+                .id(1L)
                 .title("title1")
                 .content("content1")
                 .build();
@@ -77,14 +70,13 @@ class BoardControllerTest {
         //when
         final ResultActions actions = mvc.perform(post("/api/v1/boards")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(mapper.writeValueAsString(board))
-        );
+            .content(mapper.writeValueAsString(board)));
 
         //then
         actions
                 .andExpect(status().isCreated());
-    }
 
+    }
 
 
 }

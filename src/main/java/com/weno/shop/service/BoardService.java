@@ -15,14 +15,32 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     @Transactional
+    public Board createBoards(Board resource){
+        return boardRepository.save(resource);
+    }
+
+    @Transactional
     public List<Board> getAllBoards(){
         return boardRepository.findAll();
     }
 
     @Transactional
-    public void createBoards(Board resource){
-        boardRepository.save(resource);
+    public Board getBoardById(Long id){
+        return boardRepository.findById(id).orElseThrow();
     }
 
+    @Transactional
+    public Board updateBoardById(Long id, Board resource){
+
+        Board board = boardRepository.findById(id).orElseThrow();
+        board.updateBoards(resource);
+
+        return board;
+    }
+
+    @Transactional
+    public void deleteBoardById(Long id){
+        boardRepository.deleteById(id);
+    }
 
 }

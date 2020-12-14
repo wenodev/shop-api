@@ -1,6 +1,5 @@
 package com.weno.shop.entity;
 
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -8,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class BoardTest {
 
     @Test
-    void checkBoardProperties(){
+    void initBoardTest(){
 
         // given
         Board board = Board.builder()

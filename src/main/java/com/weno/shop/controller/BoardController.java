@@ -23,12 +23,21 @@ public class BoardController {
     }
 
     @PostMapping("/boards")
-    public ResponseEntity addBoards(@RequestBody Board resource){
-        boardService.createBoards(resource);
-        return new ResponseEntity("success", HttpStatus.CREATED);
+    public ResponseEntity createBoards(@RequestBody Board resource){
+        Board board = boardService.createBoards(resource);
+        return new ResponseEntity(board, HttpStatus.CREATED);
     }
 
+    @PutMapping("/boards/{id}")
+    public ResponseEntity updateBoardById(@PathVariable Long id, @RequestBody Board resource){
+        Board board = boardService.updateBoardById(id, resource);
+        return new ResponseEntity(board, HttpStatus.OK);
+    }
 
-
+    @DeleteMapping("/boards/{id}")
+    public ResponseEntity deleteBoardById(@PathVariable Long id){
+        boardService.deleteBoardById(id);
+        return new ResponseEntity("deleted", HttpStatus.OK);
+    }
 
 }

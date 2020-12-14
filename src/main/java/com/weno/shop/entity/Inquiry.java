@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @Entity
-public class Board {
+public class Inquiry {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,9 +22,8 @@ public class Board {
     @Column
     private String content;
 
-    public void updateBoards(Board resource){
+    public void updateInquiries(Inquiry resource){
         this.title = resource.getTitle();
         this.content = resource.getContent();
     }
-
 }
