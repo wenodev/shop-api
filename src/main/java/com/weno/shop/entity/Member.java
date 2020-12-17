@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-
 @Getter
 @NoArgsConstructor
 @Entity
@@ -26,11 +25,16 @@ public class Member extends BaseEntity {
     @Column
     private String name;
 
+    @Enumerated(EnumType.STRING)
+    @Column
+    private Role role;
+
     @Builder
-    public Member(String userId, String password, String name){
+    public Member(String userId, String password, String name, Role role){
         this.userId = userId;
         this.password = password;
         this.name = name;
+        this.role = role;
     }
 
 }

@@ -1,5 +1,6 @@
 package com.weno.shop.entity;
 
+import com.weno.shop.util.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @Entity
-public class Board {
+public class Board extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

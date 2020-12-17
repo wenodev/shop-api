@@ -4,6 +4,7 @@ import com.weno.shop.entity.Board;
 import com.weno.shop.entity.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.ResourceAccessException;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -26,13 +27,13 @@ public class BoardService {
 
     @Transactional
     public Board getBoardById(Long id){
-        return boardRepository.findById(id).orElseThrow();
+        return boardRepository.findById(id).orElseThrow(() -> new ResourceAccessException("no board id : " + id));
     }
 
     @Transactional
     public Board updateBoardById(Long id, Board resource){
 
-        Board board = boardRepository.findById(id).orElseThrow();
+        Board board = boardRepository.findById(id).orElseThrow(() -> new ResourceAccessException("no board id : " + id));
         board.updateBoards(resource);
 
         return board;
