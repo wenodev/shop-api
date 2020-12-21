@@ -44,8 +44,6 @@ public class AuthController {
     }
 
 
-
-
     @PostMapping("/signup")
     public ResponseEntity registerMember(@RequestBody Member resource ){
 
@@ -63,6 +61,5 @@ public class AuthController {
 
         return new ResponseEntity(member, HttpStatus.CREATED);
     }
-
-
+    
 }

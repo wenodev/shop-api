@@ -1,11 +1,16 @@
 package com.weno.shop.security;
 
+import com.weno.shop.security.jwt.JwtAuthenticationEntryPoint;
+import com.weno.shop.security.jwt.JwtAuthenticationFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -14,18 +19,24 @@ import org.springframework.security.web.header.writers.frameoptions.XFrameOption
 
 import java.util.Arrays;
 
+@RequiredArgsConstructor
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+    private final CustomUserDetailsService customUserDetailsService;
+    private final JwtAuthenticationEntryPoint unauthorizedHandler;
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
         return new JwtAuthenticationFilter();
+    }
+
+    @Override
+    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+        authenticationManagerBuilder
+                .userDetailsService(customUserDetailsService)
+                .passwordEncoder(passwordEncoder());
     }
 
     @Bean
@@ -33,6 +44,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
+
+
 
 
     @Override
@@ -47,7 +67,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .frameOptions().sameOrigin()
                 .and()
                 .httpBasic().disable()
-                .csrf().disable()
+                .cors().and().csrf().disable()
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .authorizeRequests()
                 .anyRequest().permitAll();
 

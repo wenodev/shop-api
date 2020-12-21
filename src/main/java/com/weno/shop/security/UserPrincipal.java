@@ -1,7 +1,6 @@
 package com.weno.shop.security;
 
 import com.weno.shop.entity.Member;
-import lombok.Builder;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -32,7 +31,6 @@ public class UserPrincipal implements UserDetails {
         this.authorities = authorities;
     }
 
-
     public static UserPrincipal create(Member member){
 
         String role = String.valueOf(member.getRole());
@@ -49,12 +47,9 @@ public class UserPrincipal implements UserDetails {
         
     }
 
-
-
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override
@@ -64,7 +59,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.getName();
+        return this.name;
     }
 
     @Override

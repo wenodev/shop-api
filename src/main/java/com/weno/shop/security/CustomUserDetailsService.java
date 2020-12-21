@@ -18,25 +18,25 @@ public class CustomUserDetailsService  implements UserDetailsService {
     private final MemberRepository memberRepository;
 
 
+    // Member Id로 확인
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
 
         Member member = memberRepository.findByUserId(userId).orElseThrow(() -> new ResourceNotFoundException("no member id : " + userId));
 
-
-        return null;
+        return UserPrincipal.create(member);
     }
 
-    @Transactional
-    public UserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
-        return null;
-    }
 
+    // Member pk로 확인
     @Transactional
     public UserDetails loadUserById(Long id) {
 
-        return null;
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("no user  id : " + id ));
+
+        return UserPrincipal.create(member);
     }
 
 
