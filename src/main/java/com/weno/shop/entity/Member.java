@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @NoArgsConstructor
@@ -25,16 +27,18 @@ public class Member extends BaseEntity {
     @Column
     private String name;
 
-    @Enumerated(EnumType.STRING)
-    @Column
-    private Role role;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "member_roles",
+            joinColumns = @JoinColumn(name = "member_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     @Builder
-    public Member(String userId, String password, String name, Role role){
+    public Member(String userId, String password, String name, Set<Role> roles){
         this.userId = userId;
         this.password = password;
         this.name = name;
-        this.role = role;
+        this.roles = roles;
     }
 
 }

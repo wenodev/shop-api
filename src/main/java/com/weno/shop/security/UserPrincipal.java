@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 public class UserPrincipal implements UserDetails {
@@ -33,9 +34,9 @@ public class UserPrincipal implements UserDetails {
 
     public static UserPrincipal create(Member member){
 
-        String role = String.valueOf(member.getRole());
-
-        List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(role));
+        List<GrantedAuthority> authorities = member.getRoles().stream().map(role ->
+                new SimpleGrantedAuthority(role.getName().name())
+        ).collect(Collectors.toList());
 
         return new UserPrincipal(
                 member.getId(),

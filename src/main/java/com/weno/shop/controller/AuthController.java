@@ -2,6 +2,9 @@ package com.weno.shop.controller;
 
 import com.weno.shop.entity.Member;
 import com.weno.shop.entity.Role;
+import com.weno.shop.entity.RoleName;
+import com.weno.shop.entity.RoleRepository;
+import com.weno.shop.exception.ResourceNotFoundException;
 import com.weno.shop.security.jwt.JwtTokenProvider;
 import com.weno.shop.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -17,12 +20,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
+
 
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
 @RestController
 public class AuthController {
 
+    private final RoleRepository roleRepository;
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
@@ -31,9 +37,14 @@ public class AuthController {
     @PostMapping("/signin")
     public ResponseEntity loginUser(@RequestBody Member resource){
 
+        System.out.println(resource.getUserId());
+        System.out.println(resource.getPassword());
+
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(resource.getUserId(), resource.getPassword())
         );
+
+        System.out.println("check point 2");
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = tokenProvider.generateToken(authentication);
@@ -51,10 +62,14 @@ public class AuthController {
             return new ResponseEntity("userId is already taken", HttpStatus.BAD_REQUEST);
         }
 
+        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+                .orElseThrow(() -> new ResourceNotFoundException("User Role not set."));
+
         Member member = Member.builder()
                 .userId(resource.getUserId())
                 .password(passwordEncoder.encode(resource.getPassword()))
-                .role(Role.ROLE_USER)
+                .name(resource.getName())
+                .roles(Collections.singleton(userRole))
                 .build();
 
         memberService.registerMember(member);
