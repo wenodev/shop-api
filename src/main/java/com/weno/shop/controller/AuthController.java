@@ -8,6 +8,7 @@ import com.weno.shop.exception.ResourceNotFoundException;
 import com.weno.shop.security.jwt.JwtTokenProvider;
 import com.weno.shop.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,13 +16,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
-
 
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
@@ -35,10 +32,9 @@ public class AuthController {
     private final JwtTokenProvider tokenProvider;
 
     @PostMapping("/signin")
-    public ResponseEntity loginUser(@RequestBody Member resource){
-
-        System.out.println(resource.getUserId());
-        System.out.println(resource.getPassword());
+    public ResponseEntity loginUser(@RequestBody Member resource, @RequestHeader HttpHeaders httpHeaders){
+        System.out.println("called loginUser method");
+        System.out.println(httpHeaders);
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(resource.getUserId(), resource.getPassword())
@@ -53,7 +49,6 @@ public class AuthController {
 
         return new ResponseEntity(HttpStatus.OK);
     }
-
 
     @PostMapping("/signup")
     public ResponseEntity registerMember(@RequestBody Member resource ){

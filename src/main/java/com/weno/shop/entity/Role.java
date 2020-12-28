@@ -1,5 +1,6 @@
 package com.weno.shop.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,4 +22,10 @@ public class Role {
     @NaturalId
     @Column(length = 60)
     private RoleName name;
+
+    @Builder
+    public Role(RoleName name){
+        this.name = name;
+    }
+
 }

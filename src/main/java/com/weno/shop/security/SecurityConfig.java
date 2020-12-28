@@ -53,13 +53,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -72,7 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 )
                 .frameOptions().sameOrigin()
                 .and()
-                .httpBasic().disable()
+//                .httpBasic().disable()
                 .cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
                 .and()
