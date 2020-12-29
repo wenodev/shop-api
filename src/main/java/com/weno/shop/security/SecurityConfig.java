@@ -3,6 +3,7 @@ package com.weno.shop.security;
 import com.weno.shop.security.jwt.JwtAuthenticationEntryPoint;
 import com.weno.shop.security.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -22,7 +23,6 @@ import org.springframework.security.web.header.writers.frameoptions.XFrameOption
 
 import java.util.Arrays;
 
-@RequiredArgsConstructor
 @EnableWebSecurity
 @Configuration
 @EnableGlobalMethodSecurity(
@@ -32,8 +32,11 @@ import java.util.Arrays;
 )
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final CustomUserDetailsService customUserDetailsService;
-    private final JwtAuthenticationEntryPoint unauthorizedHandler;
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
+
+    @Autowired
+    private JwtAuthenticationEntryPoint unauthorizedHandler;
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
@@ -69,7 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 )
                 .frameOptions().sameOrigin()
                 .and()
-//                .httpBasic().disable()
+                .httpBasic().disable()
                 .cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
                 .and()

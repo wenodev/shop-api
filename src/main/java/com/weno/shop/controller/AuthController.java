@@ -8,6 +8,7 @@ import com.weno.shop.exception.ResourceNotFoundException;
 import com.weno.shop.security.jwt.JwtTokenProvider;
 import com.weno.shop.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,29 +26,38 @@ import java.util.Collections;
 @RestController
 public class AuthController {
 
-    private final RoleRepository roleRepository;
+
     private final MemberService memberService;
-    private final PasswordEncoder passwordEncoder;
-    private final AuthenticationManager authenticationManager;
-    private final JwtTokenProvider tokenProvider;
+
+//    private final RoleRepository roleRepository;
+//
+//    private final PasswordEncoder passwordEncoder;
+//    private final JwtTokenProvider tokenProvider;
+
+    @Autowired
+    AuthenticationManager authenticationManager;
+
+    @Autowired
+    RoleRepository roleRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+    @Autowired
+    JwtTokenProvider tokenProvider;
+
 
     @PostMapping("/signin")
-    public ResponseEntity loginUser(@RequestBody Member resource, @RequestHeader HttpHeaders httpHeaders){
-        System.out.println("called loginUser method");
-        System.out.println(httpHeaders);
+    public ResponseEntity loginUser(@RequestBody Member resource){
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(resource.getUserId(), resource.getPassword())
         );
 
-        System.out.println("check point 2");
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = tokenProvider.generateToken(authentication);
 
-        System.out.println(jwt);
-
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(jwt, HttpStatus.OK);
     }
 
     @PostMapping("/signup")

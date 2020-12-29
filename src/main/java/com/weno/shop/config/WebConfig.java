@@ -9,7 +9,6 @@ public class WebConfig implements WebMvcConfigurer {
 
     private final long MAX_AGE_SECS = 3600;
 
-
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**") //모든 요청에 대해서
