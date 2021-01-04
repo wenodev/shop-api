@@ -5,13 +5,15 @@ import com.weno.shop.entity.Role;
 import com.weno.shop.entity.RoleName;
 import com.weno.shop.entity.RoleRepository;
 import com.weno.shop.exception.ResourceNotFoundException;
+import com.weno.shop.payload.JwtAuthenticationResponse;
+import com.weno.shop.security.CurrentUser;
+import com.weno.shop.security.UserPrincipal;
 import com.weno.shop.security.jwt.JwtTokenProvider;
 import com.weno.shop.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,23 +30,10 @@ public class AuthController {
 
 
     private final MemberService memberService;
-
-//    private final RoleRepository roleRepository;
-//
-//    private final PasswordEncoder passwordEncoder;
-//    private final JwtTokenProvider tokenProvider;
-
-    @Autowired
-    AuthenticationManager authenticationManager;
-
-    @Autowired
-    RoleRepository roleRepository;
-
-    @Autowired
-    PasswordEncoder passwordEncoder;
-
-    @Autowired
-    JwtTokenProvider tokenProvider;
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider tokenProvider;
+    private final AuthenticationManager authenticationManager;
 
 
     @PostMapping("/signin")
@@ -57,7 +46,7 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = tokenProvider.generateToken(authentication);
 
-        return new ResponseEntity(jwt, HttpStatus.OK);
+        return new ResponseEntity(new JwtAuthenticationResponse(jwt), HttpStatus.OK);
     }
 
     @PostMapping("/signup")
@@ -80,6 +69,16 @@ public class AuthController {
         memberService.registerMember(member);
 
         return new ResponseEntity(member, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/current")
+    public Member getCurrentMember(@CurrentUser UserPrincipal userPrincipal){
+
+        Member member = Member.builder()
+                .userId(userPrincipal.getUserId())
+                .build();
+
+        return member;
     }
     
 }
