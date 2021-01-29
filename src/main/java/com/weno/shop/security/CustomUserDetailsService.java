@@ -1,7 +1,7 @@
 package com.weno.shop.security;
 
-import com.weno.shop.entity.Member;
-import com.weno.shop.entity.MemberRepository;
+import com.weno.shop.member.Member;
+import com.weno.shop.member.MemberRepository;
 import com.weno.shop.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

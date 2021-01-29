@@ -1,6 +1,6 @@
 package com.weno.shop.security;
 
-import com.weno.shop.entity.Member;
+import com.weno.shop.member.Member;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

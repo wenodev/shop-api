@@ -1,5 +1,6 @@
-package com.weno.shop.entity;
+package com.weno.shop.member;
 
+import com.weno.shop.role.Role;
 import com.weno.shop.util.BaseEntity;
 import lombok.Builder;
 import lombok.Getter;

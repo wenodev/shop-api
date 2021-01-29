@@ -1,7 +1,7 @@
 package com.weno.shop.service;
 
-import com.weno.shop.entity.Board;
-import com.weno.shop.entity.BoardRepository;
+import com.weno.shop.baord.Board;
+import com.weno.shop.baord.BoardRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

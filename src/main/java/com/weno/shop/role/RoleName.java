@@ -1,4 +1,4 @@
-package com.weno.shop.entity;
+package com.weno.shop.role;
 
 public enum  RoleName {
     ROLE_USER,

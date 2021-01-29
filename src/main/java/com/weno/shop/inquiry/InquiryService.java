@@ -1,7 +1,7 @@
-package com.weno.shop.service;
+package com.weno.shop.inquiry;
 
-import com.weno.shop.entity.Inquiry;
-import com.weno.shop.entity.InquiryRepository;
+import com.weno.shop.inquiry.Inquiry;
+import com.weno.shop.inquiry.InquiryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

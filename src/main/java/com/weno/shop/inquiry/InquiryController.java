@@ -1,8 +1,6 @@
-package com.weno.shop.controller;
+package com.weno.shop.inquiry;
 
 
-import com.weno.shop.entity.Inquiry;
-import com.weno.shop.service.InquiryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

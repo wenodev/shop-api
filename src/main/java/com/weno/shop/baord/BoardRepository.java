@@ -1,4 +1,4 @@
-package com.weno.shop.entity;
+package com.weno.shop.baord;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

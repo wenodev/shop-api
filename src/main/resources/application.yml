@@ -12,6 +12,5 @@ spring:
   jpa:
     show-sql: true
 
-
 jwtSecret : JwtSevretKey
 jwtExpirationInMs : 604800000

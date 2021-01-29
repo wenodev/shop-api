@@ -1,7 +1,7 @@
-package com.weno.shop.service;
+package com.weno.shop.baord;
 
-import com.weno.shop.entity.Board;
-import com.weno.shop.entity.BoardRepository;
+import com.weno.shop.baord.Board;
+import com.weno.shop.baord.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;

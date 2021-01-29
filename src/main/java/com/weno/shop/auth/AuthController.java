@@ -1,19 +1,17 @@
-package com.weno.shop.controller;
+package com.weno.shop.auth;
 
-import com.weno.shop.entity.Member;
-import com.weno.shop.entity.Role;
-import com.weno.shop.entity.RoleName;
-import com.weno.shop.entity.RoleRepository;
 import com.weno.shop.exception.ResourceNotFoundException;
-import com.weno.shop.payload.JwtAuthenticationResponse;
+import com.weno.shop.member.Member;
+import com.weno.shop.member.MemberService;
+import com.weno.shop.role.Role;
+import com.weno.shop.role.RoleName;
+import com.weno.shop.role.RoleRepository;
 import com.weno.shop.security.CurrentUser;
 import com.weno.shop.security.UserPrincipal;
 import com.weno.shop.security.jwt.JwtTokenProvider;
-import com.weno.shop.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

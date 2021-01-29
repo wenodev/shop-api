@@ -1,4 +1,4 @@
-package com.weno.shop.controller;
+package com.weno.shop.member;
 
 public class MemberController {
 }

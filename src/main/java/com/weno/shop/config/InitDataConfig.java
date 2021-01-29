@@ -1,8 +1,8 @@
 package com.weno.shop.config;
 
-import com.weno.shop.entity.Role;
-import com.weno.shop.entity.RoleName;
-import com.weno.shop.entity.RoleRepository;
+import com.weno.shop.role.Role;
+import com.weno.shop.role.RoleName;
+import com.weno.shop.role.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

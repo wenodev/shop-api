@@ -1,5 +1,6 @@
 package com.weno.shop.entity;
 
+import com.weno.shop.baord.Board;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

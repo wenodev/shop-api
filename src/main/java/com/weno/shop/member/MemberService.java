@@ -1,8 +1,8 @@
-package com.weno.shop.service;
+package com.weno.shop.member;
 
 
-import com.weno.shop.entity.Member;
-import com.weno.shop.entity.MemberRepository;
+import com.weno.shop.member.Member;
+import com.weno.shop.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

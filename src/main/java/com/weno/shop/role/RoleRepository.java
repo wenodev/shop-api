@@ -1,4 +1,4 @@
-package com.weno.shop.entity;
+package com.weno.shop.role;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

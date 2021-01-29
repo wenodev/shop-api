@@ -1,4 +1,4 @@
-package com.weno.shop.payload;
+package com.weno.shop.auth;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package com.weno.shop.entity;
+package com.weno.shop.baord;
 
 import com.weno.shop.util.BaseEntity;
 import lombok.*;
@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @Entity
-public class Inquiry extends BaseEntity {
+public class Board extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +23,9 @@ public class Inquiry extends BaseEntity {
     @Column
     private String content;
 
-    public void updateInquiries(Inquiry resource){
+    public void updateBoards(Board resource){
         this.title = resource.getTitle();
         this.content = resource.getContent();
     }
+
 }

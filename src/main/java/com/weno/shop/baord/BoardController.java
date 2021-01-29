@@ -1,7 +1,5 @@
-package com.weno.shop.controller;
+package com.weno.shop.baord;
 
-import com.weno.shop.entity.Board;
-import com.weno.shop.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

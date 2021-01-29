@@ -1,8 +1,9 @@
 package com.weno.shop.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.weno.shop.entity.Board;
-import com.weno.shop.service.BoardService;
+import com.weno.shop.baord.BoardController;
+import com.weno.shop.baord.Board;
+import com.weno.shop.baord.BoardService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

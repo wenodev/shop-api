@@ -1,4 +1,4 @@
-package com.weno.shop.entity;
+package com.weno.shop.inquiry;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
